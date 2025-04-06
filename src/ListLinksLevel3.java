@@ -1,3 +1,26 @@
+/*
+ * Level 3 Goals – deduplicating and tree building 
+To be awarded full credit for Level 3, you must demonstrate the following: 
+• Building a hashtable to hold URLs that are found in parsing webpages.  You may use any 
+form of hashtable that is built into Java.  The relative URL should be the “key”. 
+o Recommended data structure: HashMap 
+https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/HashMap.h
+ tml.  
+o Legacy data structure: HashTable 
+https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Hashtable.
+ html.  
+o It may make sense to have a unique number be the “value” inserted into the 
+hashtable.  You will need a unique node name for the DOT output in Level 5. 
+• Filtering out any duplicate URLs, using the hashtable, as you parse a webpage.  That is, if the 
+URL already exists in the table, it should not be printed again. 
+• Building an n-ary tree (i.e., not binary) of all of the subsequent links from the initial page.  
+This tree will be a height of 1 from the root page.  You will need to define your own Tree and 
+TreeNode classes. 
+• Create a test jar that demonstrates that the hashtable filters out duplicates and that the 
+Tree accepts input.  You do not need to traverse the tree here. 
+ */
+
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
