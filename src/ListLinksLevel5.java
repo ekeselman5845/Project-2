@@ -66,5 +66,6 @@ public class ListLinksLevel5 {
     }
 }
 
-// javac -cp ".;..\libs\jsoup-1.19.1.jar" ListLinksLevel5.java TreeNodeLevel5.java TreeIteratorLevel4.java
+// to compile and create class file
+//javac -cp ".;..\libs\jsoup-1.19.1.jar" ListLinksLevel5.java TreeNodeLevel5.java TreeIteratorLevel4.java
 // to run: java -cp ".;..\libs\jsoup-1.19.1.jar" ListLinksLevel5
