@@ -1,13 +1,17 @@
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
+/**
+ * ListLinksLevel5 crawls a website and outputs its structure as a DOT graph.
+ * Use Graphviz to visualize the output.
+ */
 public class ListLinksLevel5 {
-    private static final int MAX_DEPTH = 4;
+    private static final int MAX_DEPTH = 2;  // Adjust depth for testing
     private static Set<String> visited = new HashSet<>();
 
     public static void main(String[] args) {
@@ -15,7 +19,10 @@ public class ListLinksLevel5 {
         System.out.println("Fetching " + url + "...");
 
         TreeNodeLevel5 root = buildLinkTree(url, 0);
-        if (root != null) {
+
+        if (root == null) {
+            System.out.println("Root page could not be fetched or parsed.");
+        } else {
             System.out.println("digraph G {");
             printDotGraph(root);
             System.out.println("}");
@@ -30,7 +37,7 @@ public class ListLinksLevel5 {
         try {
             visited.add(url);
             Document doc = Jsoup.connect(url).get();
-            String title = doc.title();
+            String title = doc.title().replace("\"", "\\\"");  // Escape quotes
             TreeNodeLevel5 node = new TreeNodeLevel5(url, title, depth);
 
             if (depth < MAX_DEPTH) {
@@ -55,7 +62,7 @@ public class ListLinksLevel5 {
 
     private static void printDotGraph(TreeNodeLevel5 node) {
         String nodeName = "\"" + node.getUrl() + "\"";
-        String nodeLabel = "[label=\"Level " + node.getDepth() + ": " + node.getTitle().replace("\"", "\\\"") + "\"]";
+        String nodeLabel = "[label=\"Level " + node.getDepth() + ": " + node.getTitle() + "\"]";
         System.out.println(nodeName + " " + nodeLabel + ";");
 
         for (TreeNodeLevel5 child : node.getChildren()) {
@@ -66,6 +73,19 @@ public class ListLinksLevel5 {
     }
 }
 
+
 // to compile and create class file
 //javac -cp ".;..\libs\jsoup-1.19.1.jar" ListLinksLevel5.java TreeNodeLevel5.java TreeIteratorLevel4.java
 // to run: java -cp ".;..\libs\jsoup-1.19.1.jar" ListLinksLevel5
+
+// to complie before creating jar file: 
+//javac -cp ".;..\libs\jsoup-1.19.1.jar" ListLinksLevel5.java TreeNodeLevel5.java TreeIteratorLevel4.java
+// jar cmf ManifestLevel5.txt ListLinksLevel5.jar ListLinksLevel5.class TreeNodeLevel5.class TreeIteratorLevel4.class -C . .
+// to create a jar file: jar cmf ManifestLevel5.txt ListLinksLevel5.jar ListLinksLevel5.class TreeNodeLevel5.class TreeIteratorLevel4.class
+
+// to run jar file: java -cp ".;..\libs\jsoup-1.19.1.jar;ListLinksLevel5.jar" ListLinksLevel5
+
+//Graphviz Online link: https://dreampuf.github.io/GraphvizOnline/
+
+// To create dot file:  java -cp ".;..\libs\jsoup-1.19.1.jar;ListLinksLevel5.jar" ListLinksLevel5 > output.dot
+// This above command line helps to create a create a file named output.dot containing the DOT graph
