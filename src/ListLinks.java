@@ -5,8 +5,7 @@ To be awarded full credit for Level 1, you must demonstrate the following:
 • Gathering the URLs from that page to be printed to the console. 
 • Printing the name of that page onto the console. 
 • The ListLinks.java sample code from jsoup is a good starting point, with modifications. 
-o https://github.com/jhy/jsoup/blob/master/src/main/java/org/jsoup/examples/ListLi
- nks.java 
+o https://github.com/jhy/jsoup/blob/master/src/main/java/org/jsoup/examples/ListLinks.java 
 o Remove the package statement for simplicity. 
 o Remove the media section - we're only looking for regular links. 
 o Remove the imports section. 

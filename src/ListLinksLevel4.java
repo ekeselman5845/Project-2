@@ -1,5 +1,5 @@
 /*
- Level 4 Goals – building an Iterator and three-layer tree 
+Level 4 Goals – building an Iterator and three-layer tree 
 To be awarded full credit for Level 4, you must demonstrate the following: 
 • Building a TreeIterator that traverses the tree in level-order. 
 • Building a Tree that is at least a height of 3.  (That is at least one leaf is 3 pages away from 
@@ -20,8 +20,25 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+/**
+ * Level 4 - Web Crawler using JSoup, Tree construction and Level-order traversal.
+ * <p>
+ * This class fetches web pages starting from a root URL,
+ * constructs a tree of links up to a given depth, and
+ * prints out the tree level by level using a TreeIterator.
+ * <p>
+ * Goals:
+ * - Build a tree at least 3 layers deep.
+ * - Avoid duplicate URLs.
+ * - Traverse the tree in level-order.
+ *
+ * @author Elizabeth
+ * @author Arjina
+ */
 public class ListLinksLevel4 {
-    // Create a HashMap to avoid duplicate URLs
+    /**
+     * HashMap to store visited URLs and avoid duplicates during tree construction.
+     */
     private static HashMap<String, Integer> urlMap = new HashMap<>();
     
     // Method to fetch the page title, but keeping the other method
@@ -30,21 +47,42 @@ public class ListLinksLevel4 {
         return doc.title();
     }
      */
-    
-    // Method to fetch the links from a page
+
+    /**
+     * This method fetches all hyperlinks from the specified URL using JSoup.
+     *
+     * @param url The webpage URL to fetch links from.
+     * @return A collection of hyperlink elements.
+     * @throws IOException if the URL cannot be accessed.
+     */
     private static Elements fetchLinks(String url) throws IOException {
         Document doc = Jsoup.connect(url).get();
         return doc.select("a[href]");
     }
 
-    // Method to build the tree starting from the root URL
+    /**
+     * This method builds the entire tree of web pages starting from the root URL.
+     *
+     * @param baseUrl The URL from which to start building the tree.
+     * @param depth   The maximum depth for the tree.
+     * @return The root node of the constructed tree.
+     * @throws IOException if an error occurs during page fetching.
+     */
     private static TreeNodeLevel4 buildTree(String baseUrl, int depth) throws IOException {
         TreeNodeLevel4 root = new TreeNodeLevel4(baseUrl, fetchPageTitle(baseUrl));
         buildSubTree(root, baseUrl, depth, 1);
         return root;
     }
 
-    // Helper method to recursively build the tree up to a certain depth
+    /**
+     * This helper method recursively builds a subtree by fetching links from the parent URL and adding child nodes.
+     *
+     * @param parentNode   The parent node to which children will be attached.
+     * @param parentUrl    The URL of the parent node.
+     * @param maxDepth     The maximum depth to explore.
+     * @param currentDepth The current depth in the recursion.
+     * @throws IOException if fetching links fails.
+     */
      private static void buildSubTree(TreeNodeLevel4 parentNode, String parentUrl, int maxDepth, int currentDepth) throws IOException {
         if (currentDepth >= maxDepth) return;
 
@@ -89,7 +127,11 @@ public class ListLinksLevel4 {
         }
         */
 
-    // Method to print the tree level by level using TreeIterator
+    /**
+     * This method prints the constructed tree level by level using TreeIterator.
+     *
+     * @param root The root node of the tree.
+     */
     private static void printTreeLevels(TreeNodeLevel4 root) {
         TreeIteratorLevel4 iterator = new TreeIteratorLevel4(root);
         int level = 0;
@@ -115,21 +157,28 @@ public class ListLinksLevel4 {
         return null;
     }
   }*/
+
+   /**
+     * Sanitizes a given URL by resolving relative paths, removing fragments, and validating structure.
+     *
+     * @param url The URL string to sanitize.
+     * @return A cleaned, valid URL string, or null if invalid.
+     */
   public static String sanitizeURL(String url) {
     try {
-        // Handle cases where URL already contains a fragment
+        // to handle cases where URL already contains a fragment
         String baseUrl = "https://www.hunter.cuny.edu";  // Can be dynamic or passed if needed
 
-        // Check if the URL is a relative URL (i.e., it doesn't contain http:// or https://)
+        // to check if the URL is a relative URL (i.e., it doesn't contain http:// or https://)
         if (url.startsWith("http://") || url.startsWith("https://")) {
-            // Remove any fragment (anything after the # symbol)
+            // to remove any fragment (anything after the # symbol)
             int fragmentIndex = url.indexOf("#");
             if (fragmentIndex != -1) {
-                url = url.substring(0, fragmentIndex);  // Remove fragment part
+                url = url.substring(0, fragmentIndex);  // it removes fragment part
             }
-            return new URL(url).toURI().toString();  // Fix the URL
+            return new URL(url).toURI().toString();  // to fix the URL
         } else {
-            // Handle relative URLs by converting them to absolute
+            // to handle relative URLs by converting them to absolute
             if (!url.startsWith("/")) {
                 url = "/" + url;  // Make sure relative URLs have the leading slash
             }
@@ -142,6 +191,12 @@ public class ListLinksLevel4 {
     }
 }
 
+   /**
+     * Fetches the title of a web page, given a URL. If the URL is invalid or cannot be reached, returns "N/A".
+     *
+     * @param url The URL to fetch.
+     * @return The page title, or "N/A" if unavailable.
+     */
     public static String fetchPageTitle(String url) {
         String sanitizedUrl = sanitizeURL(url);
         if (sanitizedUrl != null) {
@@ -155,7 +210,11 @@ public class ListLinksLevel4 {
         return "N/A";
     }
     
-
+   /**
+     * Main entry point for running the Level 4 tree-building and traversal program.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         try {
             // Start from the root URL
@@ -176,3 +235,4 @@ public class ListLinksLevel4 {
 //javac -cp ".;..\libs\jsoup-1.19.1.jar" ListLinksLevel4.java TreeNodeLevel4.java TreeIteratorLevel4.java
 // after compiled to run the file:
 // java -cp ".;..\libs\jsoup-1.19.1.jar" ListLinksLevel4
+// To run level 4 javadoc: javadoc -d javadoc -cp ..\libs\jsoup-1.19.1.jar ListLinksLevel4.java TreeNodeLevel4.java TreeIteratorLevel4.java
