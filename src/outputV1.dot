@@ -1,0 +1,24 @@
+
+digraph G {
+  "https://www.hunter.cuny.edu" [label="Hunter Home"];
+  "https://www.hunter.cuny.edu" -> "/about";
+  "https://www.hunter.cuny.edu" -> "/academics";
+  "https://www.hunter.cuny.edu" -> "/admissions";
+  "https://www.hunter.cuny.edu" -> "/students";
+  "https://www.hunter.cuny.edu" -> "/office-of-the-president";
+  "https://www.hunter.cuny.edu" -> "/capital-projects";
+  "https://www.hunter.cuny.edu" -> "/hunter-green";
+  "/about" [label="About"];
+  "/about" -> "/about/mission";
+  "/about" -> "/about/strategic-plan";
+  "/about" -> "/about/accreditation";
+  "/about" -> "/about/facts-and-statistics";
+  "/about" -> "/about/campus-information";
+  "/about" -> "/about/contact";
+  "/admissions" [label="Admissions"];
+  "/admissions" -> "/admissions/undergrad";
+  "/admissions" -> "/admissions/grad";
+  "/academics" [label="Academics"];
+  "/academics" -> "/academics/majors";
+  "/academics" -> "/academics/advising";
+}

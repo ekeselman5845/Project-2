@@ -158,3 +158,4 @@ public class ListLinksLevel5 {
 // To create dot file:  java -cp ".;..\libs\jsoup-1.19.1.jar;ListLinksLevel5.jar" ListLinksLevel5 > output.dot
 // This above command line helps to create a create a file named output.dot containing the DOT graph
 // to run javadoc: javadoc -d javadoc -cp ".;..\libs\jsoup-1.19.1.jar" ListLinksLevel5.java
+// to create svg file: & "C:\Program Files\Graphviz\bin\dot.exe" -Tsvg output.dot -o output.svg
